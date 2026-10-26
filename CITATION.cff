@@ -1,0 +1,36 @@
+
+cff-version: 1.2.0
+
+message: >-
+  If you use these MATLAB scripts in your research,
+  please cite this software and the associated research article.
+
+title: >-
+  Analytical MATLAB Codes for Fine Structure,
+  Rotational Hyperfine Splitting, and Superradiant
+  Widths in Myers-Perry-AdS
+
+authors:
+   "Hamed Ramezani"
+   "Kourosh Nozari"
+
+type: software
+
+abstract: >-
+  MATLAB scripts for evaluating analytical expressions
+  describing massive scalar quasibound states around
+  small, singly spinning Myers-Perry-AdS black holes.
+  The scripts reproduce effective-potential diagrams,
+  fine and rotational hyperfine spectral splittings,
+  and horizon-induced damping and superradiant growth
+  rates. They do not implement an independent numerical
+  quasibound-state eigensolver.
+
+keywords:
+  - Myers-Perry-AdS
+  - Gravitational atom
+  - Massive scalar field
+  - Fine structure
+  - Rotational hyperfine splitting
+  - Superradiance
+  - MATLAB
