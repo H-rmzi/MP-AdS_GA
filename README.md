@@ -82,6 +82,8 @@ The reported numerical values should be interpreted within the order of the anal
 
 If you use these scripts, please cite the associated research article and the archived software release once their bibliographic information and DOI become available.
 
-## License
+## Copyright and Usage
 
-License information will be provided with the first archived software release.
+Copyright © 2026. All rights reserved.
+
+The MATLAB source codes in this repository are publicly available for scientific inspection and reproducibility. No license is granted for redistribution, modification, or reuse beyond permissions provided by applicable law and the hosting platform's terms. For additional permissions, please contact the copyright holder.
