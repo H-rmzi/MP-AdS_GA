@@ -1,5 +1,6 @@
 
-cff-version: 1.2.0
+cff-version: 1.0.1
+doi: 10.5281/zenodo.23676729
 
 message: >-
   If you use these MATLAB scripts in your research,
