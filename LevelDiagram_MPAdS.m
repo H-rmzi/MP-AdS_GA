@@ -39,7 +39,9 @@ writetable(T,'MPAdS_Figure2_CorrectAnalyticalData.csv');
 
 figure('Color','w','Units','centimeters','Position',[2 2 30 12]);
 tiledlayout(1,2,'TileSpacing','compact','Padding','compact');
-blue=[0.14 0.33 0.54]; copper=[0.69 0.33 0.19]; ink=[0.16 0.22 0.28];
+%blue=[0.14 0.33 0.54]; copper=[0.69 0.33 0.19]; 
+blue=[0 0 0.6]; copper=[0.8 0 0];
+ink=[0.16 0.22 0.28];
 
 % Panel (a) - schematic horizontal x-positions, physically scaled y-values
 ax1=nexttile; hold(ax1,'on');
@@ -77,7 +79,7 @@ for k=1:numel(m)
     y=1e10*m(k)*LT_per_m;
     plot(ax2,[.07 .45],[y y],'-','Color',blue,'LineWidth',3);
     plot(ax2,.27,y,'o','Color',blue,'MarkerFaceColor','w','MarkerSize',5);
-    text(ax2,.50,y,sprintf('$m=%+d\; (g=%d)$',m(k),g(k)), ...
+    text(ax2,.50,y,sprintf('$m=%+d\\; (g=%d)$',m(k),g(k)), ...
         'Interpreter','latex','VerticalAlignment','middle','FontSize',11);
 end
 ax2.XLim=[0 1.22]; ax2.YLim=[-2.68 2.72];ax2.XTick=[];
@@ -93,6 +95,6 @@ ax2.TickLabelInterpreter='latex'; ax2.Box='off';
 
 % Times New Roman on systems (e.g. Windows) where it is installed.
 set(findall(gcf,'-property','FontName'),'FontName','Times New Roman');
-set(findall(gcf,'Type','axes'),'TickLabelInterpreter','tex');
-exportgraphics(gcf,'MPAdS_Figure2_CorrectAnalytic.pdf','ContentType','vector');
-exportgraphics(gcf,'MPAdS_Figure2_CorrectAnalytic.png','Resolution',500);
+set(findall(gcf,'Type','axes'),'TickLabelInterpreter','latex');
+exportgraphics(gcf,'fig_Real_Levels.pdf','ContentType','vector');
+exportgraphics(gcf,'fig_Real_Levels.png','Resolution',500);
