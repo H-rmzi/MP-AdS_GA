@@ -2,65 +2,75 @@
 
 ## Overview
 
-This repository contains MATLAB scripts supporting the analytical study of massive scalar quasibound states around small, singly spinning Myers–Perry–anti-de Sitter (MP–AdS) black holes.
+This repository contains MATLAB scripts supporting the analytical investigation of massive scalar quasibound states around small, singly spinning Myers–Perry–anti-de Sitter (MP–AdS) black holes.
 
 The associated manuscript is entitled:
 
 **The Singly Spinning Myers–Perry–AdS Gravitational Atom: Fine Structure, Rotational Hyperfine Splitting, and Superradiant Widths**
 
-The analysis investigates how a black hole modifies the discrete scalar spectrum of global AdS through conservative gravitational corrections, rotational frame dragging, and horizon-induced damping or superradiant growth.
+The study examines how a black hole modifies the discrete scalar spectrum of global AdS through conservative gravitational corrections, rotational frame dragging, and horizon-induced damping or superradiant growth.
 
-The MATLAB scripts evaluate analytical expressions derived in the manuscript and reproduce its quantitative figures. They do not implement an independent numerical solution of the full quasibound-state eigenvalue problem.
+The MATLAB scripts evaluate analytical expressions derived in the manuscript and reproduce its three quantitative figures. They do not implement an independent numerical solution of the full quasibound-state eigenvalue problem.
 
 ## Repository Contents
 
 | File | Description |
 |---|---|
-| `PotentialFigure_MPAdS.m` | Computes and plots the effective radial potentials for the two representative modes, including the trapping regions and turning points. |
-| `LevelDiagram_MPAdS.m` | Reproduces the analytical fine-structure and rotational hyperfine level diagram. |
-| `GrowthDiagram_MPAdS.m` | Plots the horizon-induced damping and superradiant growth rates for the representative scalar modes. |
+| `PotentialFigure_MPAdS.m` | Evaluates and plots the effective radial potentials for two representative scalar modes, including their trapping regions, turning points, and the asymptotic AdS wall. |
+| `LevelDiagram_MPAdS.m` | Reproduces the analytical fine-structure and rotational hyperfine splitting of the scalar frequency levels. |
+| `GrowthDiagram_MPAdS.m` | Reproduces the magnitudes and signs of the horizon-induced damping and superradiant growth rates. |
 
-## Physical Model
+## Physical Model and Parameters
 
-The calculations concern a massive test scalar field propagating on a singly spinning MP–AdS black-hole background in \(D=4+n\) spacetime dimensions.
+The calculations concern a massive test scalar field in a singly spinning MP–AdS background in $D=4+n$ spacetime dimensions.
 
 The principal illustrative example uses:
 
 | Parameter | Value |
 |---|---|
-| Spacetime dimension \(D\) | 7 |
-| AdS curvature radius \(\ell\) | 50 |
-| Scalar mass \(\mu_s\) | 0.1 |
-| Rotation parameter \(a\) | 0.1 |
-| Black-hole mass parameter \(r_m^4\) | 0.810513 |
-| Oscillator shell \(\mathcal K=2N+l\) | 2 |
+| Spacetime dimension $D$ | 7 |
+| AdS curvature radius $\ell$ | 50 |
+| Scalar mass $\mu_s$ | 0.1 |
+| Black-hole mass parameter $r_m^4$ | 0.810513 |
+| Oscillator shell $\mathcal K=2N+l$ | 2 |
 
-The representative scalar modes are \((N,l)=(1,0)\) and \((N,l)=(0,2)\). The latter includes rotational sublevels labeled by the azimuthal number \(m\).
+**The rotation parameter depends on the figure:**
 
-All calculations use geometrized units, \(G=c=1\), with the normalization conventions specified in the manuscript.
+| Script | Rotation parameter | Purpose |
+|---|---|---|
+| `PotentialFigure_MPAdS.m` | $a=0$ | Static-background effective potentials and trapping regions |
+| `LevelDiagram_MPAdS.m` | $a=0.1$ | Conservative fine structure and rotational hyperfine splitting |
+| `GrowthDiagram_MPAdS.m` | $a=0.1$ | Horizon-induced decay and superradiant growth |
 
-## Methodology
+The representative scalar modes belong to the shell $\mathcal K=2$:
+
+- $(N,l)=(1,0)$
+- $(N,l)=(0,2)$, with azimuthal sublevels $m=-2,-1,0,+1,+2$
+
+All calculations use geometrized units, $G=c=1$, with the normalization conventions specified in the manuscript.
+
+## Analytical Methodology
 
 The computational workflow is based on:
 
 - The exact global-AdS scalar normal-mode spectrum.
-- Analytical conservative frequency shifts induced by the black-hole geometry.
-- Leading rotational splitting associated with frame dragging.
+- Analytical conservative frequency corrections induced by the black-hole gravitational field.
+- Leading rotational hyperfine splitting associated with frame dragging.
 - Matched-asymptotic expressions for horizon-induced damping and superradiant growth.
-- Analytical effective-potential expressions and numerical evaluation of their turning points.
+- Analytical effective-potential expressions, followed by numerical evaluation of radial profiles and turning points.
 
-The MATLAB scripts evaluate these analytical results for the specified parameter choices and generate the corresponding figures.
+The scripts evaluate these expressions for the specified parameter choices and construct the corresponding figures.
 
-The validity of the results is restricted to the approximation regimes discussed in the manuscript, including the small-black-hole and slow-rotation assumptions.
+The results are valid within the approximation regimes discussed in the manuscript, particularly the small-black-hole and slow-rotation limits.
 
 ## Requirements
 
-- MATLAB with support for local functions in scripts.
-- No independent numerical quasibound-state solver is required.
+- MATLAB with support for `tiledlayout` and `exportgraphics` (MATLAB R2020a or later).
+- No independent numerical quasibound-state eigensolver is required.
 
 ## Usage
 
-Download or clone the repository, open MATLAB, and set the current folder to the repository directory.
+Download or clone the repository, open MATLAB, and set the current working directory to the repository folder.
 
 Run the scripts separately:
 
@@ -70,20 +80,32 @@ LevelDiagram_MPAdS
 GrowthDiagram_MPAdS
 ```
 
-Each script produces the corresponding figure. Output file names and export settings are defined within the scripts.
+Each script generates its corresponding scientific figure. PDF and PNG exports, together with numerical CSV data where implemented, are generated according to the output settings defined in the script.
 
-## Reproducibility
+The scripts may overwrite previously generated output files with the same names.
 
-The repository is intended to support reproducibility of the analytical plots and illustrative numerical evaluations presented in the manuscript.
+## Reproducibility and Scope
 
-The reported numerical values should be interpreted within the order of the analytical approximations, rather than as independent high-precision numerical quasibound-state frequencies.
+The repository provides the MATLAB implementation used to evaluate the analytical formulas and generate the quantitative figures accompanying the manuscript.
+
+The effective-potential figure uses a nonrotating background, whereas the spectral-level and growth/decay figures incorporate the leading rotational corrections.
+
+Numerical root finding, quadrature, and plotting operations are used only to evaluate analytical expressions and construct figures. They should not be interpreted as an independent numerical determination of the full MP–AdS quasibound-state spectrum.
+
+The reported numerical values must be understood within the accuracy and parameter regimes of the underlying analytical approximations.
 
 ## Citation
 
-If you use these scripts, please cite the associated research article and the archived software release once their bibliographic information and DOI become available.
+If you refer to this software in academic work, please cite the associated research article and the archived software release once their bibliographic details and DOI become available.
+
+Citation metadata are provided in `CITATION.cff`.
 
 ## Copyright and Usage
 
-Copyright © 2026. All rights reserved.
+Copyright © 2026 [Copyright Holder]. All rights reserved.
 
-The MATLAB source codes in this repository are publicly available for scientific inspection and reproducibility. No license is granted for redistribution, modification, or reuse beyond permissions provided by applicable law and the hosting platform's terms. For additional permissions, please contact the copyright holder.
+The MATLAB source codes are publicly accessible for scientific inspection and verification of the reported results.
+
+No general software license is granted. Public availability does not authorize redistribution, modification, or incorporation of the code into other software, except where permitted by applicable law or the hosting platform's terms.
+
+For permissions beyond those conditions, please contact the copyright holder.
