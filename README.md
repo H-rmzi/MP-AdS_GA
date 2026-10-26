@@ -102,7 +102,7 @@ Citation metadata are provided in `CITATION.cff`.
 
 ## Copyright and Usage
 
-Copyright © 2026 [Copyright Holder].
+Copyright © 2026 Hamed Ramezani.
 
 This repository is made available under the Creative Commons Attribution 4.0 International (CC BY 4.0) license.
 
