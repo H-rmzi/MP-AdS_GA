@@ -102,8 +102,10 @@ Citation metadata are provided in `CITATION.cff`.
 
 ## Copyright and Usage
 
-Copyright © 2026 [Copyright Holder]. All rights reserved.
+Copyright © 2026 [Copyright Holder].
 
-The MATLAB source codes are publicly accessible for scientific inspection and verification of the reported results.
+This repository is made available under the Creative Commons Attribution 4.0 International (CC BY 4.0) license.
 
-No general software license is granted.
+License: https://creativecommons.org/licenses/by/4.0/
+
+When using these scripts in academic research, please also cite the associated software release and research article.
