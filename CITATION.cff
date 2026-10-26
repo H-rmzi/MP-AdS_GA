@@ -11,8 +11,8 @@ title: >-
   Widths in Myers-Perry-AdS
 
 authors:
-   "Hamed Ramezani"
-   "Kourosh Nozari"
+  - given-names: "Hamed"
+    family-names: "Ramezani"
 
 type: software
 
