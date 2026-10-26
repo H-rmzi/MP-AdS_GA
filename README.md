@@ -96,9 +96,15 @@ The reported numerical values must be understood within the accuracy and paramet
 
 ## Citation
 
-If you refer to this software in academic work, please cite the associated research article and the archived software release once their bibliographic details and DOI become available.
+The MATLAB scripts accompanying the manuscript are permanently archived on Zenodo.
 
-Citation metadata are provided in `CITATION.cff`.
+**Software:** Analytical MATLAB Codes for Fine Structure, Rotational Hyperfine Splitting, and Superradiant Widths in Myers-Perry-AdS
+
+**Version:** v1.0.1
+
+**DOI:** https://doi.org/10.5281/zenodo.23676729
+
+If you use these scripts in academic research, please cite this archived software release and the associated research article when available.
 
 ## Copyright and Usage
 
