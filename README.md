@@ -106,6 +106,4 @@ Copyright © 2026 [Copyright Holder]. All rights reserved.
 
 The MATLAB source codes are publicly accessible for scientific inspection and verification of the reported results.
 
-No general software license is granted. Public availability does not authorize redistribution, modification, or incorporation of the code into other software, except where permitted by applicable law or the hosting platform's terms.
-
-For permissions beyond those conditions, please contact the copyright holder.
+No general software license is granted.
