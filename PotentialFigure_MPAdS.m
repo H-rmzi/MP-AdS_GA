@@ -1,10 +1,9 @@
-%% Reproduce_PotentialFigure_ExactStyle.m
+%% PotentialFigure_MPAdS.m
 %Fig. 1. paper: The Singly Spinning Myers--Perry--AdS Gravitational Atom:
 %  Fine Structure, Rotational Hyperfine Splitting, and Superradiant Widths
 % MP-AdS, D=7, K=2, l=0 and l=2:  the TWO-PANEL
 % analytical effective-potential figure.
-% Execute this file as a SCRIPT, from any folder. The PDF, PNG and CSV
-% are saved in the current working directory.
+% Execute this file as a SCRIPT, from any folder. 
 clear; clc; close all;
 
 %% PARAMETERS: EXACTLY THOSE USED FOR THE ARTICLE'S STATIC POTENTIAL
@@ -15,8 +14,8 @@ h     = 0.810513;          % r_m^(D-3), nonrotating metric parameter
 K     = 2;
 
 a     = 0;                 % Figure is STATIC, even though the paper is rotating
-styles = [177 85 49; 36 85 138]/255; % orange: l=0, blue: l=2
-%styles = [0.5 0 0; 0 0 0.5];
+%styles = [128 0 32; 0 51 102]/255; % burgundy (#800020): l=0; dark blue (#003366): l=2
+styles = [0.8 0 0; 0 0 0.6];
 % Dimensional metric and its derivative, in geometric G=c=1 units.
 F  = @(r) 1 + r.^2/ell^2 - h./r.^(D-3);
 Fp = @(r) 2*r/ell^2 + (D-3)*h./r.^(D-2);
@@ -35,11 +34,17 @@ rplus = fzero(F,[0.7 1.2]);
 fp    = Fp(rplus);
 rref  = 1.2;
 
-% Dense, irregular mesh resolves the sharp barrier and distant AdS wall.
+% Hybrid near-horizon / outer mesh:
+%   - retain the original dense resolution of the horizon barrier and wells;
+%   - add logarithmically spaced radii out to 3e4 to resolve the steep
+%     AdS wall as r_* approaches its FINITE asymptotic endpoint.
+% For the normalization r_*(r=1.2)=0, r_{*,infty} is about 77.531;
+% it is not the unshifted pure-AdS value pi*ell/2.
+rmax_wall = 3e4;
 r = unique(sort([rplus + logspace(-5,log10(0.2),900), ...
                 linspace(rplus+0.2,5,570), ...
                 linspace(5,135,2300), ...
-                linspace(135,320,240), rref]));
+                logspace(log10(135),log10(rmax_wall),1800), rref]));
 
 % Horizon-regularized integration:
 %   dr_*/dr = 1/F,  1/F = 1/[F'(r_+)(r-r_+)] + regular.
@@ -137,7 +142,7 @@ title(ax1,'(a) Near-horizon barrier and AdS wall', ...
       'FontName','Times New Roman','FontSize',12.5,'FontWeight','bold');
 text(ax1,5.9,0.95,'Barrier','Color',[.45 .54 .60], ...
      'FontName','Times New Roman','FontSize',12.5);
-text(ax1,62.6,1.32,'AdS wall','Color',[.45 .54 .60], ...
+text(ax1,60.0,2.2,'AdS wall','Color',[.45 .54 .60], ...
      'FontName','Times New Roman','FontSize',12.5);
 
 %% PANEL (b): resolved outer trapping intervals for both l values
@@ -146,7 +151,9 @@ xlim(ax2,[4.5,60.5]); ylim(ax2,[0.02,0.095]);
 yticks(ax2,0.02:0.02:0.08);
 title(ax2,'(b) Outer trapping intervals (magnified)', ...
       'FontName','Times New Roman','FontSize',12.5,'FontWeight','bold');
-text(ax2,52.3,0.085,'(\omega_{K=2}^{AdS})^2 = 0.04692', ...
+text(ax2,0.80,0.88,'(\omega_{K=2}^{AdS})^2 = 0.04692', ...
+    'Units','normalized','HorizontalAlignment','right', ...
+    'VerticalAlignment','middle', ...
     'FontName','Times New Roman','FontSize',10.5, ...
     'Interpreter','tex','Color',[.28 .35 .43]);
 
@@ -180,8 +187,8 @@ end
 set(findall(fig,'-property','FontName'),'FontName','Times New Roman');
 
 %% OUTPUT FILES (vector PDF and high-resolution PNG)
-pdfname='MPAdS_SectionIII_Potential_TwoModes.pdf';
-pngname='MPAdS_SectionIII_Potential_TwoModes.png';
+pdfname='fig_Potential.pdf';
+pngname='fig_Potential.png';
 try
     exportgraphics(fig,pdfname,'ContentType','vector');
     exportgraphics(fig,pngname,'Resolution',450);
@@ -205,4 +212,5 @@ disp('Turning points (comparison target: article figure):');
 disp(turnTable);
 fprintf('r_+ = %.12g; omega_AdS = %.12g; omega_AdS^2 = %.12g\n',rplus,omega_AdS,E);
 fprintf('The paper figure uses r_*(r=1.2)=0 and a=0.\n');
+fprintf('Outer grid extends to r = %.6g (r_* = %.6f).\n',r(end),rstar(end));
 fprintf('Saved %s, %s and Potential_TurningPoints_MATLAB.csv\n',pdfname,pngname);
