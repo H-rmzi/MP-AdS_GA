@@ -1,78 +1,95 @@
+
 # MATLAB Codes for the Myers–Perry–AdS Gravitational Atom
 
 ## Overview
 
-This repository contains MATLAB scripts supporting the analytical investigation of massive scalar quasibound states around small, singly spinning Myers–Perry–anti-de Sitter (MP–AdS) black holes.
+This repository contains MATLAB codes supporting the analytical investigation of massive scalar quasibound states around small, singly spinning Myers–Perry–anti-de Sitter (MP–AdS) black holes.
 
 The associated manuscript is entitled:
 
 **The Singly Spinning Myers–Perry–AdS Gravitational Atom: Fine Structure, Rotational Hyperfine Splitting, and Superradiant Widths**
 
-The study examines how a black hole modifies the discrete scalar spectrum of global AdS through conservative gravitational corrections, rotational frame dragging, and horizon-induced damping or superradiant growth.
+The study examines how the black-hole gravitational field modifies the discrete global-AdS scalar spectrum through conservative shifts, rotational frame dragging, and horizon-induced damping or superradiant growth. The *gravitational atom* terminology describes an AdS-confined, atom-like spectral organization; it does not imply an exact hydrogenic spectrum or an exact relativistic harmonic oscillator.
 
-The MATLAB scripts evaluate analytical expressions derived in the manuscript and reproduce its three quantitative figures. They do not implement an independent numerical solution of the full quasibound-state eigenvalue problem.
+The repository contains three MATLAB scripts reproducing the manuscript's quantitative figures and **one self-contained MATLAB file** reproducing selected analytical coefficients and an independent radial-node consistency check. These programs evaluate analytical approximations; they do not constitute a numerical solver for the full rotating quasibound-state eigenvalue problem.
 
 ## Repository Contents
 
 | File | Description |
 |---|---|
-| `PotentialFigure_MPAdS.m` | Evaluates and plots the effective radial potentials for two representative scalar modes, including their trapping regions, turning points, and the asymptotic AdS wall. |
-| `LevelDiagram_MPAdS.m` | Reproduces the analytical fine-structure and rotational hyperfine splitting of the scalar frequency levels. |
-| `GrowthDiagram_MPAdS.m` | Reproduces the magnitudes and signs of the horizon-induced damping and superradiant growth rates. |
+| `PotentialFigure_MPAdS.m` | Evaluates and plots effective radial potentials for two representative scalar modes, including trapping regions, turning points, and the asymptotic AdS wall. |
+| `LevelDiagram_MPAdS.m` | Reproduces analytical fine-structure and leading rotational hyperfine splitting of the scalar frequency levels. |
+| `GrowthDiagram_MPAdS.m` | Reproduces the magnitude and sign of horizon-induced damping and superradiant growth rates. |
+| `MPAdS_Analytical_Supplement.m` | **Single-file analytical supplement:** evaluates the static resonant coefficient `Q_out`, the mixed rotational–resonant coefficients `A_N` and `B_N` for `N=0,1`, and an optional independent node-free radial check. All helper functions are included in this file. |
+
+The three figure scripts remain separate and unchanged. Only **one MATLAB source file** is required for the additional analytical-coefficient calculations.
 
 ## Physical Model and Parameters
 
-The calculations concern a massive test scalar field in a singly spinning MP–AdS background in $D=4+n$ spacetime dimensions.
+The calculations concern a massive test scalar field in a singly spinning MP–AdS background with spacetime dimension \(D=4+n\). All dimensional quantities use geometrized units \(G=c=1\), with normalization conventions defined in the manuscript.
 
-The principal illustrative example uses:
+The principal illustrative parameters are:
 
 | Parameter | Value |
 |---|---|
-| Spacetime dimension $D$ | 7 |
-| AdS curvature radius $\ell$ | 50 |
-| Scalar mass $\mu_s$ | 0.1 |
-| Black-hole mass parameter $r_m^4$ | 0.810513 |
-| Oscillator shell $\mathcal K=2N+l$ | 2 |
+| Spacetime dimension \(D\) | 7 |
+| AdS curvature radius \(\ell\) | 50 |
+| Scalar mass \(\mu_s\) | 0.1 |
+| Black-hole mass parameter \(h=r_m^4\) | 0.810513 |
+| Dimensionless scalar mass \(\beta=\mu_s\ell\) | 5 |
+| Representative figure shell \(\mathcal K=2N+l\) | 2 |
 
-**The rotation parameter depends on the figure:**
+The figure scripts use different rotation parameters:
 
 | Script | Rotation parameter | Purpose |
 |---|---|---|
-| `PotentialFigure_MPAdS.m` | $a=0$ | Static-background effective potentials and trapping regions |
-| `LevelDiagram_MPAdS.m` | $a=0.1$ | Conservative fine structure and rotational hyperfine splitting |
-| `GrowthDiagram_MPAdS.m` | $a=0.1$ | Horizon-induced decay and superradiant growth |
+| `PotentialFigure_MPAdS.m` | \(a=0\) | Static effective potentials and trapping regions |
+| `LevelDiagram_MPAdS.m` | \(a=0.1\) | Conservative fine structure and leading rotational hyperfine splitting |
+| `GrowthDiagram_MPAdS.m` | \(a=0.1\) | Leading horizon-induced damping and superradiant growth |
 
-The representative scalar modes belong to the shell $\mathcal K=2$:
+The representative modes displayed in the figures belong to the \(\mathcal K=2\) shell: \((N,l)=(1,0)\) and \((0,2)\), with \(m=-2,-1,0,1,2\) for the latter family.
 
-- $(N,l)=(1,0)$
-- $(N,l)=(0,2)$, with azimuthal sublevels $m=-2,-1,0,+1,+2$
-
-All calculations use geometrized units, $G=c=1$, with the normalization conventions specified in the manuscript.
+The **analytical supplement has a different, deliberately restricted mode selection**: \(D=7\), \(l=2\), and \(N=0,1\). These modes belong to shells \(\mathcal K=2\) and \(\mathcal K=4\), respectively. The standard reference calculation uses \(\beta=5\).
 
 ## Analytical Methodology
 
-The computational workflow is based on:
+The MATLAB computations use the exact global-AdS scalar normal-mode functions and frequencies, conservative gravitational perturbations, leading frame-dragging corrections, and matched-asymptotic expressions for the effect of the black-hole horizon.
 
-- The exact global-AdS scalar normal-mode spectrum.
-- Analytical conservative frequency corrections induced by the black-hole gravitational field.
-- Leading rotational hyperfine splitting associated with frame dragging.
-- Matched-asymptotic expressions for horizon-induced damping and superradiant growth.
-- Analytical effective-potential expressions, followed by numerical evaluation of radial profiles and turning points.
+The additional analytical supplement evaluates the finite-part coefficient \(\mathcal Q_{\mathrm{out}}\) for the nonrotating resonant mode \((N,l)=(0,2)\) and the coefficients controlling the part of the **real frequency that is odd in azimuthal number \(m\)** at linear order in rotation.
 
-The scripts evaluate these expressions for the specified parameter choices and construct the corresponding figures.
+For the latter calculation, the conventions are
 
-The results are valid within the approximation regimes discussed in the manuscript, particularly the small-black-hole and slow-rotation limits.
+\[
+H=\frac{h}{\ell^4},\qquad
+\xi=\frac{ma}{\ell},\qquad
+\Omega=\ell\omega^{\mathrm{stat}},
+\]
+
+with the formal small-black-hole expansion
+
+\[
+\left.\frac{\partial\operatorname{Re}\Omega}{\partial\xi}\right|_{\xi=0}
+=H\Lambda_N+H^2\left[A_N\ln\left(\frac{r_+^{(0)}}{\ell}\right)+B_N\right]+\cdots.
+\]
+
+Here \(r_+^{(0)}\) is the horizon radius of the nonrotating background. The finite coefficient \(B_N\) is defined **together with the displayed logarithmic convention**; only the combined logarithmic and finite contribution has invariant physical meaning under changes of logarithmic scale.
+
+The optional *node-free* check solves the first-order inhomogeneous radial problem without dividing by the square of the reference radial eigenfunction at its internal node for \(N=1\). It tests the finite-part evaluation used for \(B_1\).
 
 ## Requirements
 
-- MATLAB with support for `tiledlayout` and `exportgraphics` (MATLAB R2020a or later).
+- **MATLAB R2025b:** the author-reported successful execution environment for the single-file analytical supplement, including both `PASS` tests.
+- No Symbolic Math Toolbox is needed for `MPAdS_Analytical_Supplement.m`.
+- The original figure scripts use MATLAB functionality including `tiledlayout` and `exportgraphics` (MATLAB R2020a or later); the complete four-file collection has not been separately certified on all earlier releases.
 - No independent numerical quasibound-state eigensolver is required.
 
 ## Usage
 
-Download or clone the repository, open MATLAB, and set the current working directory to the repository folder.
+Clone or download the repository, open MATLAB, and set the current working directory to the folder containing the `.m` files.
 
-Run the scripts separately:
+### Reproduce the manuscript figures
+
+Run the existing scripts separately:
 
 ```matlab
 PotentialFigure_MPAdS
@@ -80,38 +97,91 @@ LevelDiagram_MPAdS
 GrowthDiagram_MPAdS
 ```
 
-Each script generates its corresponding scientific figure. PDF and PNG exports, together with numerical CSV data where implemented, are generated according to the output settings defined in the script.
+PDF/PNG exports and CSV data, where implemented, follow the settings in the individual figure scripts. Previously generated output files with the same names may be overwritten.
 
-The scripts may overwrite previously generated output files with the same names.
+### Reproduce the analytical coefficients
+
+Run the **single** supplemental MATLAB file:
+
+```matlab
+MPAdS_Analytical_Supplement
+```
+
+This runs the analytical coefficient calculations **and** the independent node-free check. For a faster run without the node-free check:
+
+```matlab
+MPAdS_Analytical_Supplement(false)
+```
+
+The reference parameter can also be supplied explicitly:
+
+```matlab
+results = MPAdS_Analytical_Supplement(true, 5);
+```
+
+The source supports a nonnegative value of \(\beta\), but the bundled reference assertions and reported validation below are specifically for \(\beta=5\).
+
+The supplement writes output files to a `results/` folder beside the MATLAB source file, including `analytical_coefficients.csv`, `run_summary.txt`, and (when the node-free check is enabled) `nodefree_convergence_matlab.csv`. Existing files with the same names may be overwritten. The function also returns a MATLAB structure with the results.
+
+## Reference Results and Validation
+
+For \(D=7\), \(l=2\), \(\beta=5\):
+
+| Quantity | \(N=0\) | \(N=1\) |
+|---|---:|---:|
+| \(\Omega_0\) | 10.831 | 12.831 |
+| First-order static coefficient \(\Omega_1\) | -19.683 | -62.134 |
+| Leading rotational coefficient \(\Lambda_N\) | 19.683 | 77.880 |
+| AdS radial norm | \(2.386\times10^{-4}\) | \(2.540\times10^{-5}\) |
+| Far-zone finite part | 0.3042 | 1.851 |
+| Logarithmic coefficient \(A_N\) | -2096 | \(-1.968\times10^4\) |
+| Finite coefficient \(B_N\) | 815.6 | 5374 |
+
+The static coefficient is reproduced through both the closed expression and a beta-integral reconstruction:
+
+```text
+Q_out (closed)    = 5.811149809582
+Q_out (beta form) = 5.811149809582
+```
+
+For the independent node-free check at \(\epsilon=0.01\), the MATLAB R2025b output reported:
+
+```text
+Node-free I_FP = 1.8507353670
+Reference I_FP = 1.8506888890
+
+PASS: independent node-free finite-part check.
+PASS: static and mixed-coefficient reference tests.
+```
+
+The node-free value differs from the reference by approximately \(4.648\times10^{-5}\) at that finite cutoff, within the specified convergence tolerance. The author-reported console output confirms successful execution of the unified file in MATLAB R2025b; it does not establish that the full rotating QBS equations have been independently solved in MATLAB.
 
 ## Reproducibility and Scope
 
-The repository provides the MATLAB implementation used to evaluate the analytical formulas and generate the quantitative figures accompanying the manuscript.
+The codes reproduce selected results derived within the **small-black-hole, low-frequency, and slow-rotation** approximations of the manuscript. The mixed rotational–resonant expansion is taken at linear order in \(a\), with the derivative evaluated at \(a=0\) before studying the small-hole limit.
 
-The effective-potential figure uses a nonrotating background, whereas the spectral-level and growth/decay figures incorporate the leading rotational corrections.
+Numerical quadrature, root finding, and plotting in the scripts serve to evaluate analytical formulas or perform consistency checks. They are **not** independent numerical determinations of the full rotating MP–AdS quasibound-state spectrum. The code does not prove a uniform bound on all neglected asymptotic terms or supply exact finite-spin QBS frequencies.
 
-Numerical root finding, quadrature, and plotting operations are used only to evaluate analytical expressions and construct figures. They should not be interpreted as an independent numerical determination of the full MP–AdS quasibound-state spectrum.
+## Citation and Archived Version
 
-The reported numerical values must be understood within the accuracy and parameter regimes of the underlying analytical approximations.
+The manuscript's existing Zenodo citation refers to the **previously archived** software version:
 
-## Citation
+**Software:** *Analytical MATLAB Codes for Fine Structure, Rotational Hyperfine Splitting, and Superradiant Widths in Myers-Perry-AdS*
 
-The MATLAB scripts accompanying the manuscript are permanently archived on Zenodo.
-
-**Software:** Analytical MATLAB Codes for Fine Structure, Rotational Hyperfine Splitting, and Superradiant Widths in Myers-Perry-AdS
-
-**Version:** v1.0.1
+**Archived version:** `v1.0.1`
 
 **DOI:** https://doi.org/10.5281/zenodo.23676729
 
-If you use these scripts in academic research, please cite this archived software release and the associated research article when available.
+This DOI identifies the prior release. **Do not assume that version `v1.0.1` includes `MPAdS_Analytical_Supplement.m`.** After the updated repository is archived as a new version within the existing Zenodo record, its version-specific citation and, where appropriate, the manuscript's data-availability statement should be updated to identify the version that actually contains the analytical supplement.
+
+If these codes are used in academic research, please cite the relevant archived software version and the associated research article when available.
 
 ## Copyright and Usage
 
 Copyright © 2026 Hamed Ramezani.
 
-This repository is made available under the Creative Commons Attribution 4.0 International (CC BY 4.0) license.
+This repository is made available under the **Creative Commons Attribution 4.0 International (CC BY 4.0)** license.
 
 License: https://creativecommons.org/licenses/by/4.0/
 
-When using these scripts in academic research, please also cite the associated software release and research article.
+When using these scripts in academic research, please cite the corresponding archived software release and associated article.
