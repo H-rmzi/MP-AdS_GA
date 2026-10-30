@@ -162,19 +162,23 @@ The codes reproduce selected results derived within the **small-black-hole, low-
 
 Numerical quadrature, root finding, and plotting in the scripts serve to evaluate analytical formulas or perform consistency checks. They are **not** independent numerical determinations of the full rotating MP–AdS quasibound-state spectrum. The code does not prove a uniform bound on all neglected asymptotic terms or supply exact finite-spin QBS frequencies.
 
-## Citation and Archived Version
+## Citation and Archived Software
 
-The manuscript's existing Zenodo citation refers to the **previously archived** software version:
+The complete MATLAB software package accompanying the manuscript is permanently archived on Zenodo.
 
-**Software:** *Analytical MATLAB Codes for Fine Structure, Rotational Hyperfine Splitting, and Superradiant Widths in Myers-Perry-AdS*
+**Software:** Analytical MATLAB Codes for Fine Structure, Rotational Hyperfine Splitting, and Superradiant Widths in Myers-Perry-AdS
 
-**Archived version:** `v1.0.1`
+**Author:** Hamed Ramezani
 
-**DOI:** https://doi.org/10.5281/zenodo.23676729
+**Version:** v1.0.2
 
-This DOI identifies the prior release. **Do not assume that version `v1.0.1` includes `MPAdS_Analytical_Supplement.m`.** After the updated repository is archived as a new version within the existing Zenodo record, its version-specific citation and, where appropriate, the manuscript's data-availability statement should be updated to identify the version that actually contains the analytical supplement.
+**DOI:** https://doi.org/10.5281/zenodo.23815105
 
-If these codes are used in academic research, please cite the relevant archived software version and the associated research article when available.
+This release contains the three MATLAB scripts used to reproduce the manuscript figures and the self-contained `MPAdS_Analytical_Supplement.m` program for evaluating selected analytical spectral coefficients and performing an independent radial consistency check.
+
+If you use these codes in academic research, please cite this software release and the associated research article when available.
+
+
 
 ## Copyright and Usage
 
