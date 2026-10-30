@@ -1,10 +1,10 @@
 
-cff-version: 1.0.1
-doi: 10.5281/zenodo.23676729
+cff-version: 1.2.0
 
 message: >-
-  If you use these MATLAB scripts in your research,
-  please cite this software and the associated research article.
+  If you use these MATLAB codes in your research,
+  please cite this software release and the associated
+  research article when available.
 
 title: >-
   Analytical MATLAB Codes for Fine Structure,
@@ -17,15 +17,34 @@ authors:
 
 type: software
 
+version: "1.0.2"
+date-released: "2026-10-30"
+
+doi: "10.5281/zenodo.23815105"
+
+repository-code: "https://github.com/H-rmzi/MP-AdS_GA"
+
 abstract: >-
-  MATLAB scripts for evaluating analytical expressions
-  describing massive scalar quasibound states around
-  small, singly spinning Myers-Perry-AdS black holes.
-  The scripts reproduce effective-potential diagrams,
-  fine and rotational hyperfine spectral splittings,
-  and horizon-induced damping and superradiant growth
-  rates. They do not implement an independent numerical
-  quasibound-state eigensolver.
+  MATLAB codes supporting the analytical investigation
+  of massive scalar quasibound states around small,
+  singly spinning Myers-Perry-AdS black holes.
+  Three scripts reproduce effective-potential diagrams,
+  gravitational fine structure, rotational hyperfine
+  splitting, and horizon-induced damping and
+  superradiant growth rates.
+
+  An additional self-contained MATLAB program reproduces
+  the static resonant coefficient Q_out and the logarithmic
+  and finite coefficients A_N and B_N of the mixed
+  rotational-resonant spectral corrections for D=7,
+  l=2, and radial overtones N=0,1. It also implements
+  an independent node-free radial consistency check.
+
+  The analytical supplement was successfully executed
+  using MATLAB R2025b. The codes evaluate analytical
+  approximations and do not implement an independent
+  numerical solver for the full rotating quasibound-state
+  eigenvalue problem.
 
 keywords:
   - Myers-Perry-AdS
@@ -34,6 +53,8 @@ keywords:
   - Fine structure
   - Rotational hyperfine splitting
   - Superradiance
+  - Resonant response
+  - Matched asymptotic expansions
   - MATLAB
 
 license: CC-BY-4.0
