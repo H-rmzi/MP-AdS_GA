@@ -3,7 +3,7 @@
 %  Fine Structure, Rotational Hyperfine Splitting, and Superradiant Widths
 % MP-AdS, D=7, K=2, l=0 and l=2:  the TWO-PANEL
 % analytical effective-potential figure.
-% Execute this file as a SCRIPT, from any folder. 
+ 
 clear; clc; close all;
 
 %% PARAMETERS: EXACTLY THOSE USED FOR THE ARTICLE'S STATIC POTENTIAL
@@ -72,15 +72,19 @@ for il=1:2
 end
 
 %% FIGURE LAYOUT: same two distinct y-scales as the article
-fig=figure('Color','w','Units','centimeters','Position',[2.5 2.5 30 13]);
+fig=figure('Color','w','Units','centimeters','Position',[2.5 2.5 33 15]);
 try
     fig.Renderer='painters';
 catch
 end
-T = tiledlayout(fig,1,2,'TileSpacing','compact','Padding','compact');
-
-ax1=nexttile(T,1); hold(ax1,'on');
-ax2=nexttile(T,2); hold(ax2,'on');
+% Fixed positions reserve generous margins for both y-axis labels and ticks.
+% Do not combine manual Position with tiledlayout, which can override it.
+leftPos  = [0.15 0.17 0.32 0.64];
+rightPos = [0.61 0.17 0.34 0.64];
+ax1 = axes('Parent',fig,'Units','normalized','Position',leftPos);
+hold(ax1,'on');
+ax2 = axes('Parent',fig,'Units','normalized','Position',rightPos);
+hold(ax2,'on');
 ax = [ax1 ax2];
 
 handles = gobjects(1,3);
@@ -177,26 +181,27 @@ lg = legend(ax1,handles, ...
     'Orientation','horizontal','Box','off', ...
     'FontName','Times New Roman','FontSize',11.5, ...
     'Interpreter','tex');
-try
-    lg.Layout.Tile='north';
-catch
-    lg.Location='northoutside';
-end
+% A manually positioned top legend does not reflow the axis margins.
+lg.Units = 'normalized';
+lg.Position = [0.27 0.905 0.48 0.06];
+% Some MATLAB versions may resize the axes when a legend is created;
+% restore the deliberately reserved margins after positioning the legend.
+set(ax1,'Units','normalized','Position',leftPos);
+set(ax2,'Units','normalized','Position',rightPos);
 
 % Make all labels / tick numbers and legend use Times New Roman.
 set(findall(fig,'-property','FontName'),'FontName','Times New Roman');
 
-%% OUTPUT FILES (vector PDF and high-resolution PNG)
+%% OUTPUT FILES (clean, newly rendered vector PDF and high-resolution PNG)
+% Important: remove stale PDF/PNG files, which may contain legacy text.
 pdfname='fig_Potential.pdf';
 pngname='fig_Potential.png';
-try
-    exportgraphics(fig,pdfname,'ContentType','vector');
-    exportgraphics(fig,pngname,'Resolution',450);
-catch
-    set(fig,'PaperPositionMode','auto');
-    print(fig,pdfname,'-dpdf','-vector');
-    print(fig,pngname,'-dpng','-r450');
-end
+drawnow;
+if isfile(pdfname), delete(pdfname); end
+if isfile(pngname), delete(pngname); end
+exportgraphics(fig,pdfname,'ContentType','vector','BackgroundColor','white');
+exportgraphics(fig,pngname,'Resolution',600,'BackgroundColor','white');
+assert(isfile(pdfname) && isfile(pngname),'Figure 1 export failed.');
 
 %% TURNING-POINT TABLE / NUMERIC REPRODUCIBILITY CHECK
 lcol=repelem([0;2],3);
