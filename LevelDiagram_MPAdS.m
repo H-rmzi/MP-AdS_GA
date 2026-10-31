@@ -3,7 +3,7 @@
 % Fine Structure, Rotational Hyperfine Splitting, and Superradiant Widths
 % Uses analytic D=7 (K=2) real-frequency corrections.
 % Horizontal segments represent spectral levels. Two vertical scales are
-% retained; these are genuine frequency differences.
+
 
 
 clear; close all; clc;
@@ -37,14 +37,17 @@ T = table([1;zeros(5,1)], [0;2*ones(5,1)], [0;m], [1;g], ...
     {'N','l','m','multiplicity','omega_real'});
 writetable(T,'MPAdS_Figure2_CorrectAnalyticalData.csv');
 
-figure('Color','w','Units','centimeters','Position',[2 2 30 12]);
-tiledlayout(1,2,'TileSpacing','compact','Padding','compact');
+fig=figure('Color','w','Units','centimeters','Position',[2 2 33 14]);
+% Fixed axes positions prevent the (a) ylabel and its negative tick labels
+% from being clipped, without changing the physical vertical scales.
+leftPos  = [0.15 0.18 0.32 0.68];
+rightPos = [0.61 0.18 0.34 0.68];
 %blue=[0.14 0.33 0.54]; copper=[0.69 0.33 0.19]; 
 blue=[0 0 0.6]; copper=[0.8 0 0];
 ink=[0.16 0.22 0.28];
 
 % Panel (a) - schematic horizontal x-positions, physically scaled y-values
-ax1=nexttile; hold(ax1,'on');
+ax1=axes('Parent',fig,'Units','normalized','Position',leftPos); hold(ax1,'on');
 y0=0; y10=1e6*dw_10_N; y02=1e6*dw_02_N;
 yline(ax1,0,':','Color',[0.76 0.79 0.82]);
 plot(ax1,[.13 .80],[0 0],'-','Color',ink,'LineWidth',3.4);
@@ -73,7 +76,7 @@ title(ax1,'(a) Pure AdS and Newtonian fine structure');
 ax1.TickLabelInterpreter='latex'; ax1.Box='off';
 
 % Panel (b) - real hyperfine enlargement, relative to l=2 centroid
-ax2=nexttile; hold(ax2,'on');
+ax2=axes('Parent',fig,'Units','normalized','Position',rightPos); hold(ax2,'on');
 yline(ax2,0,':','Color',[0.76 0.79 0.82]);
 for k=1:numel(m)
     y=1e10*m(k)*LT_per_m;
@@ -94,7 +97,18 @@ ax2.TickLabelInterpreter='latex'; ax2.Box='off';
 
 
 % Times New Roman on systems (e.g. Windows) where it is installed.
-set(findall(gcf,'-property','FontName'),'FontName','Times New Roman');
-set(findall(gcf,'Type','axes'),'TickLabelInterpreter','latex');
-exportgraphics(gcf,'fig_Real_Levels.pdf','ContentType','vector');
-exportgraphics(gcf,'fig_Real_Levels.png','Resolution',500);
+set(findall(fig,'-property','FontName'),'FontName','Times New Roman');
+set(findall(fig,'Type','axes'),'TickLabelInterpreter','latex');
+% Restore reserved space after label/font measurement by MATLAB.
+set(ax1,'Units','normalized','Position',leftPos);
+set(ax2,'Units','normalized','Position',rightPos);
+
+% Render from a fresh figure; delete older PDFs to prevent legacy objects.
+pdfname='fig_Real_Levels.pdf';
+pngname='fig_Real_Levels.png';
+drawnow;
+if isfile(pdfname), delete(pdfname); end
+if isfile(pngname), delete(pngname); end
+exportgraphics(fig,pdfname,'ContentType','vector','BackgroundColor','white');
+exportgraphics(fig,pngname,'Resolution',600,'BackgroundColor','white');
+assert(isfile(pdfname) && isfile(pngname),'Figure 2 export failed.');
