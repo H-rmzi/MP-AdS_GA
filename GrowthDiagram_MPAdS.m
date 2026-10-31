@@ -1,12 +1,7 @@
 %% GrowthDiagram_MPAdS.m
-%  Fig. 3. 
-%  paper: The Singly Spinning Myers--Perry--AdS Gravitational Atom:
-%  Fine Structure, Rotational Hyperfine Splitting, and Superradiant Widths
-% Compare absolute magnitudes on a log axis (panel a) and signs on a linear
-% axis for l=2 (panel b). No QBS radial numerical eigensolver is used.
-% All frequencies are dimensional in geometrized units (G=c=1).
 
 clear; clc; close all;
+
 % ----------------------- Physical parameters -----------------------
 D = 7; q = D-3;
 ell = 50; mu_s = 0.1; a = 0.1; h = 0.810513;
@@ -58,8 +53,8 @@ ax2 = axes('Parent',fig,'Units','normalized','Position',[0.615 0.240 0.355 0.650
 % ----------------------- Panel (a): magnitudes -----------------------
 hold(ax1,'on');
 ypos = 5:-1:0;  % top to bottom (six physical modes)
-labels = {'$(1,0,0)$', '$l=2,\,m=-2$', '$l=2,\,m=-1$', ...
-          '$l=2,\,m=0$', '$l=2,\,m=+1$', '$l=2,\,m=+2$'};
+labels = {'$(N,l,m)=(1,0,0)$', '$(0,\,2;\,m=-2)$', '$(0,\,2;\,m=-1)$', ...
+          '$(0,\,2;\,m=0)$', '$(0,\,2;\,m=+1)$', '$(0,\,2;\,m=+2)$'};
 
 for k = 1:6
     xx = abs(omegaI(k)); yy = ypos(k);
@@ -182,4 +177,3 @@ writetable(GrowthTable,'GrowthDiagram_CorrectAnalytic_Data_MATLAB.csv');
 
 fprintf('rplus = %.12g, OmegaH = %.12g\n',rplus,OmegaH);
 disp(GrowthTable);
-
